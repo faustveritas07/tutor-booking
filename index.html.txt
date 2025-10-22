@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Weekend Lesson Booking</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root { color-scheme: light dark; }
+body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+.slot[data-status="booked"] { opacity: .6; pointer-events: none; }
+.slot input:disabled + span { text-decoration: line-through; }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen">
+<div class="max-w-3xl mx-auto p-6">
+<header class="mb-6">
+<h1 class="text-2xl font-bold">Weekend Lesson Booking</h1>
+<p class="text-sm text-gray-600">Pick one or more 60‑minute slots. You’ll be notified once your tutor accepts one.</p>
+</header>
+
+
+<section id="weekMeta" class="mb-4 text-sm text-gray-700"></section>
+
+
+<form id="requestForm" class="space-y-6 bg-white rounded-2xl shadow p-5">
+<div>
+<label class="block text-sm font-semibold mb-1" for="studentName">Your name</label>
+<input id="studentName" required placeholder="e.g., Alex Johnson"
+class="w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+</div>
+
+
+<div class="grid md:grid-cols-2 gap-6">
+<div>
+<h2 class="font-semibold mb-2">Saturday</h2>
+<div id="sat" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+</div>
+<div>
+<h2 class="font-semibold mb-2">Sunday</h2>
+<div id="sun" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+</div>
+</div>
+
+
+<div class="flex items-center gap-3">
+<button type="submit" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700">Send Request</button>
+<span id="statusMsg" class="text-sm"></span>
+</div>
+</form>
+
+
+<details class="mt-8">
+<summary class="cursor-pointer font-semibold">Admin</summary>
+<div class="mt-4 bg-white rounded-2xl shadow p-5 space-y-4">
+<div class="flex items-center gap-2">
+<input id="adminCode" placeholder="Admin code" class="rounded-xl border border-gray-300 px-3 py-2" />
+<button id="refreshAdmin" class="px-3 py-2 rounded-xl bg-gray-800 text-white text-sm">Refresh</button>
+</div>
+<div id="adminPanel" class="space-y-6 text-sm"></div>
+</div>
+</details>
+
+
+<footer class="mt-10 text-xs text-gray-500">Times shown in your local time. Slots are 60 minutes. Availability: 08:00–19:00, Sat & Sun.</footer>
+</div>
+
+
+<script>
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwY_DfL4V2yBPx_dXkRplePSbPTikOAmXzBTnNNTY2seuHXK3TNGLbN-6Gx0lkKMYsz/exec'; // <-- paste your Apps Script Web App URL
+
+
+const fmt = new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' });
+</html>
